@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block extension %}
+<h1>News List</h1>
+{% if page_obj %}
+    <ul>
+        {% for post in page_obj %}
+            <li>
+                <a href="{{ post.link }}">{{ post.title }}</a> by {{ post.author.username }}
+                ({{ post.upvotes.count }} upvotes, posted on {{ post.created }})
+                <form action="{% url 'upvote' post=post.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Upvote">
+                </form>
+                <a href="{% url 'comment_list' pk=post.pk %}">Comments</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+        {% endif %}
+        <li class="page-item">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </li>
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+        {% endif %}
+    </ul>
+{% else %}
+    <p>There are no posts in the news feed yet.</p>
+{% endif %}
+{% endblock %}
