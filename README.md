@@ -17,3 +17,4 @@ After you've started the application, you can go on site "http://127.0.0.1:8000"
 
 ## Additional links
 Postman collection: https://www.getpostman.com/collections/6080b87e4ddd159f6487
+Documentation: https://documenter.getpostman.com/view/15543852/TzK16uae
